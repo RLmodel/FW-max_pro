@@ -21,15 +21,11 @@ find_package(catkin REQUIRED COMPONENTS
    ctrl_cmd.msg
    ctrl_fb.msg
    front_angle_fb.msg
-   front_angle_free_ctrl_cmd.msg
-   front_velocity_free_ctrl_cmd.msg
    io_cmd.msg
    io_fb.msg
    lf_wheel_fb.msg
    lr_wheel_fb.msg
    rear_angle_fb.msg
-   rear_angle_free_ctrl_cmd.msg
-   rear_velocity_free_ctrl_cmd.msg
    rf_wheel_fb.msg
    rr_wheel_fb.msg
    steering_ctrl_cmd.msg

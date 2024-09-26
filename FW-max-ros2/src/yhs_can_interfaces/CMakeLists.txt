@@ -20,6 +20,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 	"msg/ChassisInfoFb.msg"
 	"msg/CtrlCmd.msg"
 	"msg/CtrlFb.msg"
+	"msg/SteeringCtrlCmd.msg"
+	"msg/SteeringCtrlFb.msg"
 	"msg/FrontAngleFb.msg"
 	"msg/IoCmd.msg"
 	"msg/IoFb.msg"

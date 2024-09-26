@@ -23,6 +23,7 @@
 
 #include "yhs_can_interfaces/msg/io_cmd.hpp"
 #include "yhs_can_interfaces/msg/ctrl_cmd.hpp"
+#include "yhs_can_interfaces/msg/steering_ctrl_cmd.hpp"
 #include "yhs_can_interfaces/msg/chassis_info_fb.hpp"
 
 #define READ_PARAM(TYPE, NAME, VAR, VALUE) VAR = VALUE; \
@@ -50,6 +51,7 @@ private:
   
   rclcpp::Subscription<yhs_can_interfaces::msg::IoCmd>::SharedPtr io_cmd_subscriber_;
   rclcpp::Subscription<yhs_can_interfaces::msg::CtrlCmd>::SharedPtr ctrl_cmd_subscriber_;
+  rclcpp::Subscription<yhs_can_interfaces::msg::SteeringCtrlCmd>::SharedPtr steering_ctrl_cmd_subscriber_;
   
   rclcpp::Publisher<yhs_can_interfaces::msg::ChassisInfoFb>::SharedPtr chassis_info_fb_publisher_;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
@@ -57,6 +59,8 @@ private:
   void io_cmd_callback(const yhs_can_interfaces::msg::IoCmd::SharedPtr io_cmd_msg);
   
   void ctrl_cmd_callback(const yhs_can_interfaces::msg::CtrlCmd::SharedPtr ctrl_cmd_msg);
+
+  void steering_ctrl_cmd_callback(const yhs_can_interfaces::msg::SteeringCtrlCmd::SharedPtr ctrl_cmd_msg);
   
   bool wait_for_can_frame();
   

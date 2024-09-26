@@ -1,8 +1,6 @@
 #ifndef __CANCONTROL_NODE_H__
 #define __CANCONTROL_NODE_H__
 
-
-
 #include "ros/ros.h"
 #include "std_msgs/Int32.h"
 #include "geometry_msgs/Twist.h"
@@ -19,16 +17,11 @@
 #include "yhs_can_msgs/rf_wheel_fb.h"
 #include "yhs_can_msgs/io_fb.h"
 #include "yhs_can_msgs/steering_ctrl_cmd.h"
-#include "yhs_can_msgs/front_angle_free_ctrl_cmd.h"
-#include "yhs_can_msgs/front_velocity_free_ctrl_cmd.h"
-#include "yhs_can_msgs/rear_angle_free_ctrl_cmd.h"
-#include "yhs_can_msgs/rear_velocity_free_ctrl_cmd.h"
 #include "yhs_can_msgs/bms_fb.h"
 #include "yhs_can_msgs/bms_flag_fb.h"
 #include "yhs_can_msgs/steering_ctrl_fb.h"
 #include "yhs_can_msgs/front_angle_fb.h"
 #include "yhs_can_msgs/rear_angle_fb.h"
-
 
 #include <net/if.h>
 #include <sys/ioctl.h>
@@ -40,72 +33,59 @@
 #include <string.h>
 #include <unistd.h>
 
-
 #include <string>
 
 #include <linux/can.h>
 #include <linux/can/raw.h>
 
+#include <mutex>
 
-namespace yhs_tool {
-class CanControl
+namespace yhs_tool
 {
-public:
-	CanControl();
-	~CanControl();
-	
-	void run();
-private:
-	ros::NodeHandle nh_;
+  class CanControl
+  {
+  public:
+    CanControl();
+    ~CanControl();
 
-	ros::Publisher ctrl_fb_pub_;
-	ros::Publisher lr_wheel_fb_pub_;
-	ros::Publisher rr_wheel_fb_pub_;
-	ros::Publisher io_fb_pub_;
-	ros::Publisher rf_wheel_fb_pub_;
-	ros::Publisher lf_wheel_fb_pub_;
-	ros::Publisher bms_fb_pub_;
-	ros::Publisher bms_flag_fb_pub_;
-	ros::Publisher steering_ctrl_fb_pub_;
-	ros::Publisher front_angle_fb_pub_;
-	ros::Publisher rear_angle_fb_pub_;
+    void run();
 
-	ros::Subscriber ctrl_cmd_sub_;
-	ros::Subscriber io_cmd_sub_;
-	ros::Subscriber steering_ctrl_cmd_sub_;
-	ros::Subscriber front_angle_free_ctrl_cmd_sub_;
-	ros::Subscriber front_velocity_free_ctrl_cmd_sub_;
-	ros::Subscriber rear_angle_free_ctrl_cmd_sub_;
-	ros::Subscriber rear_velocity_free_ctrl_cmd_sub_;
+  private:
+    ros::NodeHandle nh_;
 
+    ros::Publisher ctrl_fb_pub_;
+    ros::Publisher lr_wheel_fb_pub_;
+    ros::Publisher rr_wheel_fb_pub_;
+    ros::Publisher io_fb_pub_;
+    ros::Publisher rf_wheel_fb_pub_;
+    ros::Publisher lf_wheel_fb_pub_;
+    ros::Publisher bms_fb_pub_;
+    ros::Publisher bms_flag_fb_pub_;
+    ros::Publisher steering_ctrl_fb_pub_;
+    ros::Publisher front_angle_fb_pub_;
+    ros::Publisher rear_angle_fb_pub_;
 
-	boost::mutex cmd_mutex_;
+    ros::Subscriber ctrl_cmd_sub_;
+    ros::Subscriber io_cmd_sub_;
+    ros::Subscriber steering_ctrl_cmd_sub_;
 
-	unsigned char sendData_u_io_[8] = {0};
-	unsigned char sendData_u_vel_[8] = {0};
+    std::mutex mutex_;
 
-	
-	int dev_handler_;
-	can_frame send_frames_[2];
-	can_frame recv_frames_[1];
+    unsigned char sendData_u_io_[8];
+    unsigned char sendData_u_vel_[8];
 
+    int dev_handler_;
+    can_frame send_frames_;
+    can_frame recv_frames_;
 
-	void io_cmdCallBack(const yhs_can_msgs::io_cmd msg);
-	void ctrl_cmdCallBack(const yhs_can_msgs::ctrl_cmd msg);
-	void steering_ctrl_cmdCallBack(const yhs_can_msgs::steering_ctrl_cmd msg);
-	void front_angle_free_ctrl_cmdCallBack(const yhs_can_msgs::front_angle_free_ctrl_cmd msg);
-	void front_velocity_free_ctrl_cmdCallBack(const yhs_can_msgs::front_velocity_free_ctrl_cmd msg);
-	void rear_angle_free_ctrl_cmdCallBack(const yhs_can_msgs::rear_angle_free_ctrl_cmd msg);
-	void rear_velocity_free_ctrl_cmdCallBack(const yhs_can_msgs::rear_velocity_free_ctrl_cmd msg);
+    void io_cmdCallBack(const yhs_can_msgs::io_cmd msg);
+    void ctrl_cmdCallBack(const yhs_can_msgs::ctrl_cmd msg);
+    void steering_ctrl_cmdCallBack(const yhs_can_msgs::steering_ctrl_cmd msg);
 
-
-	void recvData();
-	void sendData();
-
-};
+    void recvData();
+    void sendData();
+  };
 
 }
 
-
 #endif
-

@@ -1,4 +1,4 @@
-ROS驱动包使用前提条件：（1）ubuntu16/ubuntu18系统    （2）ubuntu装好ros1
+ROS驱动包使用前提条件：（1）ubuntu16/ubuntu18/ubuntu20系统    （2）ubuntu装好ros1
 
 1、检查CAN是否正常
      1.1、将CAN卡接到电脑的USB口

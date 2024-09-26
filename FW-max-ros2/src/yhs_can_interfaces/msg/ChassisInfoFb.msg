@@ -1,6 +1,7 @@
 std_msgs/Header header
 
 yhs_can_interfaces/CtrlFb     ctrl_fb
+yhs_can_interfaces/SteeringCtrlFb    steering_ctrl_fb
 yhs_can_interfaces/IoFb       io_fb
 
 yhs_can_interfaces/LrWheelFb   lr_wheel_fb
