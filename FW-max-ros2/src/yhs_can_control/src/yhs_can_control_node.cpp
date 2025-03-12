@@ -111,6 +111,10 @@ namespace yhs
 
 		ctrl_cmd_publisher_->publish(msg);
 
+		// msg.ctrl_cmd_gear=8;
+		// msg.ctrl_cmd_x_linear=cmd_vel_msg->linear.x;
+		// msg.ctrl_cmd_y_linear=cmd_vel_msg->linear.y;
+		// ctrl_cmd_publisher_->publish(msg);
   }
 
 // cmd_vel control
